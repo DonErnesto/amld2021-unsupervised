@@ -1,5 +1,5 @@
-# amld2020-unsupervised
-Repository for the Fraud Detection (outlier detection on mixed data) workshop, AMLD 2020  
+# amld2021-unsupervised
+Repository for the Fraud Detection (outlier detection on mixed data) workshop, AMLD 2021 
 
 ## General instructions:
 
