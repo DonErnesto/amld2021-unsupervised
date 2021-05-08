@@ -62,7 +62,7 @@ Installing Docker and the required image takes roughly **6 GB of disk space**.
 - Download and install Docker Desktop https://www.docker.com/products/docker-desktop
 - In the base directory, execute:
 
-    `$ docker compose up`
+    `docker compose up`
     Then copy and paste from the URL that appears in the terminal in your browser
 
 
