@@ -147,3 +147,4 @@ dmypy.json
 
 .bash_history
 .python_history
+**/.local
