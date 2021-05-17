@@ -5,14 +5,23 @@ jobs:
   pre-commit:
     name: pre-commit
     runs-on: ubuntu-latest
-    steps:
-      - name: install pre-commit
+    steps:  
+      - name: Install git 
+        run: |
+          apt-get install -y git
+          git --version
+          echo "Path is ... $PATH"
+          PATH=$PATH:$(which git)
+          echo "Path is ... $PATH"
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Install pre-commit
         run: |
           pip install pre-commit
-      - name: install pre-commit hooks
+      - name: Install pre-commit hooks
         run: |
           pre-commit install
-      - name: run pre-commit hooks
+      - name: Run pre-commit hooks
         run: |
           pre-commit run
       
