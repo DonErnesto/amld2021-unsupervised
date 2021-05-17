@@ -53,6 +53,15 @@ To get Docker up and running,
 
 Copy-paste the link (`http://127.0.0.1:8888/?token=124a64...`) into a browser.
 
+### Contributing
+
+To commit only clean notebooks we use `pre-commit`. Install it with:
+
+    pip install pre-commit
+    pre-commit install # it will then run automatically on each git commit command
+
+It also runs as github action on every push and pull request
+
 **Docker tips**
 - The container can be stopped by ctrl-c in the terminal when the notebook is running (the normal way)
 - `$ docker ps -a` shows all Docker containers, running and stopped
