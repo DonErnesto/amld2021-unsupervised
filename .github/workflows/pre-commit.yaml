@@ -1,0 +1,18 @@
+# Triggers the workflow on push or pull request events
+on: [push, pull_request]
+
+jobs:
+  pre-commit:
+    name: pre-commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: install pre-commit
+        run: |
+          pip install pre-commit
+      - name: install pre-commit hooks
+        run: |
+          pre-commit install
+      - name: run pre-commit hooks
+        run: |
+          pre-commit run
+      
