@@ -14,7 +14,7 @@ Necessary preparation during the workshop:
 """
 
 import pandas as pd
-from outlierutils import reduce_mem_usage
+from notebooks.outlierutils import reduce_mem_usage
 from scipy.io import arff
 
 
