@@ -19,9 +19,9 @@ from scipy.io import arff
 
 
 ## Path definitions
-X_PATH = 'data/x_pendigits.pkl'
-Y_PATH = 'data/y_pendigits.pkl'
-pendigits_path = r'data/PenDigits_withoutdupl_norm_v01.arff'
+X_PATH = 'data/x_pendigits.csv'
+Y_PATH = 'data/y_pendigits.csv'
+pendigits_path = 'data/PenDigits_withoutdupl_norm_v01.arff'
 
 
 ## Load data
@@ -33,8 +33,9 @@ df = df.sample(frac=1, random_state=2718)
 df = df.reset_index(drop=True)
 
 
-## Pickle the output
-df.drop(columns='outlier').to_pickle(X_PATH)
-df.outlier.to_pickle(Y_PATH)
+## save the output
+df.drop(columns='outlier').to_csv(X_PATH, index=False)
+print(f'Written features to: {X_PATH}')
 
-print('Written output to: {}'.format(X_PATH))
+df.outlier.to_csv(Y_PATH, index=False)
+print(f'Written label to: {Y_PATH}')
