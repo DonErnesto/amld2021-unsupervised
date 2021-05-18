@@ -28,7 +28,7 @@ pendigits_path = r'data/PenDigits_withoutdupl_norm_v01.arff'
 data = arff.loadarff(pendigits_path)
 df = pd.DataFrame(data[0])
 df = df.drop(columns=['id'])
-df.outlier = df.outlier.map({b"'yes'":1, b"'no'":0})
+df.outlier = df.outlier.map({b"yes":1, b"no":0})
 df = df.sample(frac=1, random_state=2718)
 df = df.reset_index(drop=True)
 
