@@ -213,14 +213,13 @@ def plot_outlier_scores(y_true, scores, title="", **kdeplot_options):
 
     Returns: a pd.DataFrame with classification results
     """
-    assert len(y_true) == len(scores), (
-        "Error: " "Expecting y_true and scores to be 1-D and of equal length"
-    )
+    if len(y_true) != len(scores):
+        msg = "Error: " "Expecting y_true and scores to be 1-D and of equal length"
+        raise ValueError(msg)
     if isinstance(y_true, pd.Series):
         y_true = y_true.values
     if isinstance(scores, pd.Series):
         scores = scores.values
-    assert len(y_true) == len(scores), "y_true and scores should be of equal length"
     aucroc_score = roc_auc_score(y_true, scores)
     aucpr_score = average_precision_score(y_true, scores)
     classify_results = pd.DataFrame(
