@@ -242,6 +242,7 @@ def plot_outlier_scores(y_true, scores, title="", **kdeplot_options):
         "{} AUC-ROC: {:.3f}, AUC-PR: {:.3f}".format(title, aucroc_score, aucpr_score)
     )
     plt.xlabel("Predicted outlier score")
+    plt.legend()
     return classify_results
 
 
