@@ -31,7 +31,7 @@ Instructions will be given during the workshop.
 To clone the repo:
 
 ```
-git clone https://github.com/DonErnesto/amld2021-unsupervised`
+git clone https://github.com/DonErnesto/amld2021-unsupervised
 cd amld2021-unsupervised
 ```
 
