@@ -1,0 +1,5 @@
+[tool.tartufo]
+exclude-paths = "tartufo_exclude.txt"
+exclude-signatures = [
+  "2e0a79779ceddef2ac54c79f26f51c370fb3d91c14ab45734ca343c7b44e1271",
+]
