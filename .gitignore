@@ -145,4 +145,10 @@ dmypy.json
 .bash_history
 .python_history
 **/.local
+.config
+.ipython
+
+# vscode and vscode server
 .vscode/settings.json
+.vscode-server
+.gitconfig
