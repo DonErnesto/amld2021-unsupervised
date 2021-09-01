@@ -1,5 +1,6 @@
 import functools
 import json
+from typing import Callable, List
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -15,7 +16,7 @@ cost_dict = {
 }
 
 
-def admin_only(func):
+def admin_only(func: Callable):
     """ Decorator for dangerous functions
     """
 
@@ -57,7 +58,7 @@ class LabelSubmitter:
             print("Is the username and password correct?")
             return auth
 
-    def post_predictions(self, idx, endpoint="pen"):
+    def post_predictions(self, idx: List[int], endpoint: str = "pen"):
         """ Posts to /label
         sets self.last_labels
         """
@@ -88,7 +89,7 @@ class LabelSubmitter:
             print(e)
             print(json.loads(res.text))
 
-    def get_labels(self, endpoint="pen"):
+    def get_labels(self, endpoint: str = "pen"):
         """ 'Gets' to /label
         sets self.all_labels
         """
@@ -112,7 +113,7 @@ class LabelSubmitter:
         except KeyError:
             print(json.loads(res.text))
 
-    def get_statistics(self, endpoint="pen", plot=True):
+    def get_statistics(self, endpoint: str = "pen", plot: bool = True):
         try:
             res = requests.get(
                 url=self.base_url + "/labelstats/{}".format(endpoint),
@@ -134,7 +135,9 @@ class LabelSubmitter:
         except KeyError:
             print(json.loads(res.text))
 
-    def get_scores(self, endpoint="pen", plot=True, plot_only_active=True):
+    def get_scores(
+        self, endpoint: str = "pen", plot: bool = True, plot_only_active: bool = True
+    ):
         try:
             res = requests.get(
                 url=self.base_url + "/labelstats/{}".format(endpoint),
@@ -167,7 +170,7 @@ class LabelSubmitter:
             return stats
             print(json.loads(res.text))
 
-    def add_user(self, username, password):
+    def add_user(self, username: str, password: str):
         res = requests.post(
             url=self.base_url + "/newuser",
             headers={"Authorization": "JWT {}".format(self.jwt_token)},
@@ -181,7 +184,7 @@ class LabelSubmitter:
         return cost_fp * N_fp + cost_tp * N_tp
 
     @admin_only
-    def delete_user(self, username, iknowwhatiamdoing=False):
+    def delete_user(self, username: str, iknowwhatiamdoing: bool = False):
         res = requests.delete(
             url=self.base_url + "/removeuser/{}".format(username),
             headers={"Authorization": "JWT {}".format(self.jwt_token)},
@@ -192,7 +195,9 @@ class LabelSubmitter:
             return res
 
     @admin_only
-    def delete_labels(self, username, endpoint="pen", iknowwhatiamdoing=False):
+    def delete_labels(
+        self, username: str, endpoint: str = "pen", iknowwhatiamdoing: bool = False
+    ):
         res = requests.delete(
             url=self.base_url + "/labeladmin/{}/{}".format(endpoint, username),
             headers={"Authorization": "JWT {}".format(self.jwt_token)},
@@ -203,15 +208,16 @@ class LabelSubmitter:
             return res
 
 
-def plot_outlier_scores(y_true, scores, title="", **kdeplot_options):
+def plot_outlier_scores(
+    y_true: List[int], scores: List[float], title: str = "", **kdeplot_options
+) -> pd.DataFrame:
     """
-    y_true (np-array): array with actual labels (0/1)
-    scores (np-array): array with outlier scores
-    title (str): title to be added to plot
+    y_true are the actual labels (0/1)
+    scores are the computed outlier scores
 
     **kdeplot_options (such as bw for kde kernel width) are passed to sns.kdeplot()
 
-    Returns: a pd.DataFrame with classification results
+    Return a pandas DataFrame with classification results
     """
     if len(y_true) != len(scores):
         msg = "Error: " "Expecting y_true and scores to be 1-D and of equal length"
@@ -246,13 +252,13 @@ def plot_outlier_scores(y_true, scores, title="", **kdeplot_options):
     return classify_results
 
 
-def plot_top_N(y_true, scores, N=100):
+def plot_top_N(y_true: List[int], scores: List[float], N: int = 100) -> pd.DataFrame:
     """
-    y_true (np-array): array with actual labels (0/1)
-    scores (np-array): array with outlier scores
-    N (int): top-N size
+    y_true are the actual labels (0/1)
+    scores are the computed outlier scores
+    N is the top-N size
 
-    Returns: a pd.DataFrame with classification results
+    Return a pandas DataFrame with classification results
 
     """
     assert len(y_true) == len(scores), (
@@ -288,7 +294,9 @@ def plot_top_N(y_true, scores, N=100):
     return classify_results
 
 
-def median_imputation(df, median_impute_limit=0.95, impute_val=-999):
+def median_imputation(
+    df: pd.DataFrame, median_impute_limit: float = 0.95, impute_val: int = -999
+) -> pd.DataFrame:
     """ inf/nan Values that occur more often than median_impute_limit are imputed with the median
     when less often, they are imputed by impute_val.
     Set median_impute_limit to 0 to always do median imputation
@@ -305,7 +313,7 @@ def median_imputation(df, median_impute_limit=0.95, impute_val=-999):
     return df
 
 
-def reduce_mem_usage(df, verbose=True):
+def reduce_mem_usage(df: pd.DataFrame, verbose: bool = True):
     """ function from Kaggle. Transforms the column data types to the smallest possible representation
     """
     numerics = ["int16", "int32", "int64", "float16", "float32", "float64"]
