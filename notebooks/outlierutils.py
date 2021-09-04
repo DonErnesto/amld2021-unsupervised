@@ -17,8 +17,7 @@ cost_dict = {
 
 
 def admin_only(func: Callable):
-    """ Decorator for dangerous functions
-    """
+    """Decorator for dangerous functions"""
 
     @functools.wraps(func)
     def wrapper_decorator(*args, **kwargs):
@@ -46,8 +45,7 @@ class LabelSubmitter:
         self._previous_score = None
 
     def _get_jwt_token(self):
-        """ Posts to /auth
-        """
+        """Posts to /auth"""
         auth = requests.post(
             self.base_url + "/auth",
             json={"username": f"{self.username}", "password": f"{self.password}"},
@@ -59,7 +57,7 @@ class LabelSubmitter:
             return auth
 
     def post_predictions(self, idx: List[int], endpoint: str = "pen"):
-        """ Posts to /label
+        """Posts to /label
         sets self.last_labels
         """
         idx = [int(n) for n in idx]  # replace numpy array and int64 by list with ints
@@ -90,7 +88,7 @@ class LabelSubmitter:
             print(json.loads(res.text))
 
     def get_labels(self, endpoint: str = "pen"):
-        """ 'Gets' to /label
+        """'Gets' to /label
         sets self.all_labels
         """
         try:
@@ -297,7 +295,7 @@ def plot_top_N(y_true: List[int], scores: List[float], N: int = 100) -> pd.DataF
 def median_imputation(
     df: pd.DataFrame, median_impute_limit: float = 0.95, impute_val: int = -999
 ) -> pd.DataFrame:
-    """ inf/nan Values that occur more often than median_impute_limit are imputed with the median
+    """inf/nan Values that occur more often than median_impute_limit are imputed with the median
     when less often, they are imputed by impute_val.
     Set median_impute_limit to 0 to always do median imputation
     """
@@ -314,8 +312,7 @@ def median_imputation(
 
 
 def reduce_mem_usage(df: pd.DataFrame, verbose: bool = True):
-    """ function from Kaggle. Transforms the column data types to the smallest possible representation
-    """
+    """function from Kaggle. Transforms the column data types to the smallest possible representation"""
     numerics = ["int16", "int32", "int64", "float16", "float32", "float64"]
     start_mem = df.memory_usage().sum() / 1024 ** 2
     for col in df.columns:
