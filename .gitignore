@@ -152,8 +152,4 @@ dmypy.json
 .vscode/settings.json
 .vscode-server
 .gitconfig
-.idea/amld2021-unsupervised.iml
-.idea/modules.xml
-.idea/vcs.xml
-.idea/inspectionProfiles/profiles_settings.xml
-.idea/.gitignore
+.idea
