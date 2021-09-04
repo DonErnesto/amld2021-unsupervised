@@ -9,6 +9,7 @@ import requests
 import seaborn as sns
 from sklearn.metrics import average_precision_score, roc_auc_score
 
+API_URL = r"https://amld2021-unsupervised.herokuapp.com/"
 cost_dict = {
     "kdd": {"FP": -25, "TP": 500},
     "fraud": {"FP": -10, "TP": 500},
