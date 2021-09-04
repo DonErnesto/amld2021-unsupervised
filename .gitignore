@@ -152,3 +152,4 @@ dmypy.json
 .vscode/settings.json
 .vscode-server
 .gitconfig
+.idea
