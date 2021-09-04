@@ -50,6 +50,10 @@ class LabelSubmitter:
             self.base_url + "/auth",
             json={"username": f"{self.username}", "password": f"{self.password}"},
         )
+
+        # preemptively raise
+        auth.raise_for_status()
+
         try:
             self.jwt_token = json.loads(auth.text)["access_token"]
         except KeyError:
