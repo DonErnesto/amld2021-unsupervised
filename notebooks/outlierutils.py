@@ -257,12 +257,14 @@ def plot_outlier_scores(
 
 def plot_top_N(y_true: List[int], scores: List[float], N: int = 100) -> pd.DataFrame:
     """
-    y_true are the actual labels (0/1)
-    scores are the computed outlier scores
-    N is the top-N size
+    Plots the actual binary labels (Positive versus Negative) of the N points
+    with the highest outlier scores.
 
-    Return a pandas DataFrame with classification results
+    y_true: actual labels.
+    scores: outlier scores (the higher the score, the higher the probability of an outlier).
+    N: number of points with highest outlier scores.
 
+    Returns: a pandas DataFrame with classification results
     """
     assert len(y_true) == len(scores), (
         "Error: " "Expecting y_true and scores to be 1-D and of equal length"
