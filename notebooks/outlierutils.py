@@ -9,6 +9,7 @@ import requests
 import seaborn as sns
 from sklearn.metrics import average_precision_score, roc_auc_score
 
+API_URL = r"https://amld2021-unsupervised.herokuapp.com/"
 cost_dict = {
     "kdd": {"FP": -25, "TP": 500},
     "fraud": {"FP": -10, "TP": 500},
@@ -50,6 +51,10 @@ class LabelSubmitter:
             self.base_url + "/auth",
             json={"username": f"{self.username}", "password": f"{self.password}"},
         )
+
+        # preemptively raise
+        auth.raise_for_status()
+
         try:
             self.jwt_token = json.loads(auth.text)["access_token"]
         except KeyError:
