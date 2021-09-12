@@ -216,7 +216,7 @@ def plot_outlier_scores(
 ) -> pd.DataFrame:
     """
     y_true are the actual labels (0/1)
-    scores are the computed outlier scores
+    scores are the computed outlier scores (the higher the score, the higher the probability of an outlier).
 
     **kdeplot_options (such as bw for kde kernel width) are passed to sns.kdeplot()
 
@@ -261,8 +261,8 @@ def plot_top_N(y_true: List[int], scores: List[float], N: int = 100) -> pd.DataF
     Plots the actual binary labels (Positive versus Negative) of the N points
     with the highest outlier scores.
 
-    y_true: actual labels.
-    scores: outlier scores (the higher the score, the higher the probability of an outlier).
+    y_true are the actual labels (0/1)
+    scores are the computed outlier scores (the higher the score, the higher the probability of an outlier).
     N: number of points with highest outlier scores.
 
     Returns: a pandas DataFrame with classification results
