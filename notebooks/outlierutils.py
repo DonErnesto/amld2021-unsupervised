@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import requests
 import seaborn as sns
-from sklearn.metrics import average_precision_score, roc_auc_score
+from sklearn.metrics import roc_auc_score
 
 API_URL = r"https://amld2021-unsupervised.herokuapp.com/"
 cost_dict = {
@@ -230,7 +230,7 @@ def plot_outlier_scores(
     if isinstance(scores, pd.Series):
         scores = scores.values
     aucroc_score = roc_auc_score(y_true, scores)
-    aucpr_score = average_precision_score(y_true, scores)
+    # aucpr_score = average_precision_score(y_true, scores)
     classify_results = pd.DataFrame(
         data=pd.concat((pd.Series(y_true), pd.Series(scores)), axis=1)
     )
@@ -247,9 +247,10 @@ def plot_outlier_scores(
         shade=True,
         **kdeplot_options,
     )
-    plt.title(
-        "{} AUC-ROC: {:.3f}, AUC-PR: {:.3f}".format(title, aucroc_score, aucpr_score)
-    )
+    # plt.title(
+    #     "{} AUC-ROC: {:.3f}, AUC-PR: {:.3f}".format(title, aucroc_score, aucpr_score)
+    # )
+    plt.title("{} AUC-ROC: {:.3f}".format(title, aucroc_score))
     plt.xlabel("Predicted outlier score")
     plt.legend()
     return classify_results

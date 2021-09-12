@@ -8,11 +8,9 @@ Done here:
 - transformation from byte-type strings to regular utf8 strings
 - mapping of outliers: 'yes'/'no' to 1/0
 - shuffling of data
+- dropping of duplicates
+- resetting the index
 
-Necessary preparation during the workshop:
-- Removal of duplicates
-(NB: df.duplicated(df.drop(columns=['id']).columns).sum() shows there are duplicates)
-- (For some algorithms) normalization, categorical encoding
 
 """
 
@@ -41,7 +39,7 @@ for col in str_df_columns:
     df[col] = df[col].apply(lambda x: x.lstrip("'").rstrip("'"))
 df.outlier = df.outlier.map({"yes": 1, "no": 0})
 
-# Shuffle the columns
+# Shuffle the columns, drop the "id" column, drop duplicates and reset index
 df = df.sample(frac=1, random_state=2718)
 df = df.drop(columns="id")
 df = df.drop_duplicates()
