@@ -16,20 +16,20 @@ Necessary preparation during the workshop:
 
 """
 
+import numpy as np
 import pandas as pd
 from scipy.io import arff
-import numpy as np
 
-## Path definitions
-X_PATH = 'data/x_kdd.pkl'
-Y_PATH_1 = 'private/y_kdd.pkl'
-Y_PATH_2 = r'/Users/ernstoldenhof/Projects/AMLD2020_workshop/API/unsupervised-label-api-pg/data/y_kdd.pkl'
-
-
-kddcup_path = r'bigdata/KDDCup99_original.arff'
+# Path definitions
+X_PATH = "data/x_kdd.pkl"
+Y_PATH_1 = "private/y_kdd.pkl"
+Y_PATH_2 = r"/Users/ernstoldenhof/Projects/AMLD2020_workshop/API/unsupervised-label-api-pg/data/y_kdd.pkl"
 
 
-## Load data
+kddcup_path = r"bigdata/KDDCup99_original.arff"
+
+
+# Load data
 data = arff.loadarff(kddcup_path)
 
 df = pd.DataFrame(data[0])
@@ -37,25 +37,24 @@ df = pd.DataFrame(data[0])
 # Convert byte columns to regular strings
 str_df_columns = df.select_dtypes([np.object]).columns
 for col in str_df_columns:
-    df[col] = df[col].str.decode('utf-8')
-    df[col] = df[col].apply(lambda x: x.lstrip('\'').rstrip('\''))
-df.outlier = df.outlier.map({'yes':1, 'no':0})
+    df[col] = df[col].str.decode("utf-8")
+    df[col] = df[col].apply(lambda x: x.lstrip("'").rstrip("'"))
+df.outlier = df.outlier.map({"yes": 1, "no": 0})
 
-## Shuffle the columns
+# Shuffle the columns
 df = df.sample(frac=1, random_state=2718)
-df = df.drop(columns='id')
+df = df.drop(columns="id")
 df = df.drop_duplicates()
 df = df.reset_index(drop=True)
 
 
-
-print('len df: {}'.format(len(df)))
+print("len df: {}".format(len(df)))
 assert len(df) == 48113
-## Pickle the output
-df.drop(columns='outlier').to_pickle(X_PATH)
+# Pickle the output
+df.drop(columns="outlier").to_pickle(X_PATH)
 df.outlier.to_pickle(Y_PATH_1)
 df.outlier.to_pickle(Y_PATH_2)
 
-print('Written output to: {}'.format(X_PATH))
-print('Written output to: {}'.format(Y_PATH_1))
-print('Written output to: {}'.format(Y_PATH_2))
+print("Written output to: {}".format(X_PATH))
+print("Written output to: {}".format(Y_PATH_1))
+print("Written output to: {}".format(Y_PATH_2))
