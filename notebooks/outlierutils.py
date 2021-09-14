@@ -22,7 +22,10 @@ def admin_only(func: Callable):
 
     @functools.wraps(func)
     def wrapper_decorator(*args, **kwargs):
-        if not args[0].username == "admin":  # NB: first arg to an object-method is self
+        if not args[0].username in (
+            "ernst",
+            "admin",
+        ):  # NB: first arg to an object-method is self
             print("Admin only!")
             return None
         if not kwargs.get("iknowwhatiamdoing", None):
